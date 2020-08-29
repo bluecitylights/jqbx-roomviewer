@@ -16,12 +16,15 @@ errors.textContent = "";
 const form = document.querySelector(".form-data");
 // grab the country name
 const room = document.querySelector(".room-handle");
-
+chrome.storage.sync.get("roomHandle", function(items){
+  room.value = items.roomHandle;
+});
 // declare a method to search by room handle
 const searchForRoom = async roomHandle => {
   loading.style.display = "block";
   errors.textContent = "";
   try {
+    console.log('test');
     const response = await axios.get(`${api}/${roomHandle}`);
     loading.style.display = "none";
     users.textContent = R.pluck("username", response.data.users);
@@ -29,6 +32,10 @@ const searchForRoom = async roomHandle => {
     djs.textContent = R.pluck("username", response.data.djs);
     djcount.textContent = R.length(response.data.djs);
     results.style.display = "block";
+
+    chrome.storage.sync.set({ "roomHandle": roomHandle }, function(){
+      //  A data saved callback omg so fancy
+    });
   } catch (error) {
     loading.style.display = "none";
     results.style.display = "none";
