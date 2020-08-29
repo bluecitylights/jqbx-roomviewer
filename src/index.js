@@ -1,7 +1,7 @@
 import axios from "axios";
 import * as R from 'ramda';
 
-const api = "https://jqbx.fm/room";
+const roomapi = "https://jqbx.fm/room";
 const errors = document.querySelector(".errors");
 const loading = document.querySelector(".loading");
 const users = document.querySelector(".users");
@@ -12,20 +12,19 @@ const results = document.querySelector(".result-container");
 results.style.display = "none";
 loading.style.display = "none";
 errors.textContent = "";
-// grab the form
 const form = document.querySelector(".form-data");
-// grab the country name
 const room = document.querySelector(".room-handle");
+
 chrome.storage.sync.get("roomHandle", function(items){
   room.value = items.roomHandle;
 });
-// declare a method to search by room handle
+
 const searchForRoom = async roomHandle => {
   loading.style.display = "block";
   errors.textContent = "";
   try {
     console.log('test');
-    const response = await axios.get(`${api}/${roomHandle}`);
+    const response = await axios.get(`${roomapi}/${roomHandle}`);
     loading.style.display = "none";
     users.textContent = R.pluck("username", response.data.users);
     usercount.textContent = R.length(response.data.users);
@@ -34,7 +33,6 @@ const searchForRoom = async roomHandle => {
     results.style.display = "block";
 
     chrome.storage.sync.set({ "roomHandle": roomHandle }, function(){
-      //  A data saved callback omg so fancy
     });
   } catch (error) {
     loading.style.display = "none";
@@ -43,7 +41,6 @@ const searchForRoom = async roomHandle => {
   }
 };
 
-// declare a function to handle form submission
 const handleSubmit = async e => {
   e.preventDefault();
   searchForRoom(room.value);
