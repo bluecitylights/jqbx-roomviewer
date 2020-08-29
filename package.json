@@ -19,7 +19,7 @@
     "webpack-cli": "3.3.11"
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "ramda": "^0.27.1"
   }
 }
