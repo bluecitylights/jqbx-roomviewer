@@ -1,9 +1,13 @@
 import axios from "axios";
+import * as R from 'ramda';
+
 const api = "https://jqbx.fm/room";
 const errors = document.querySelector(".errors");
 const loading = document.querySelector(".loading");
 const users = document.querySelector(".users");
+const usercount = document.querySelector(".user-count");
 const djs = document.querySelector(".djs");
+const djcount = document.querySelector(".dj-count");
 const results = document.querySelector(".result-container");
 results.style.display = "none";
 loading.style.display = "none";
@@ -20,8 +24,10 @@ const searchForRoom = async roomHandle => {
   try {
     const response = await axios.get(`${api}/${roomHandle}`);
     loading.style.display = "none";
-    users.textContent = response.data.users.length;
-    djs.textContent = response.data.djs.length;
+    users.textContent = R.pluck("username", response.data.users);
+    usercount.textContent = R.length(response.data.users);
+    djs.textContent = R.pluck("username", response.data.djs);
+    djcount.textContent = R.length(response.data.djs);
     results.style.display = "block";
   } catch (error) {
     loading.style.display = "none";
