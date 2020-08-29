@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="container">
+    <form class="form-data" autocomplete="on">
+      <div class="enter-country">
+        Enter a room handle to get more information:
+      </div>
+      <div>
+        <input type="text" class="room-handle" />
+      </div>
+      <button class="search-btn">Search</button>
+    </form>
+    <div class="result">
+      <div class="loading">loading...</div>
+      <div class="errors"></div>
+      <div class="data"></div>
+      <div class="result-container">
+        <p><strong>Number of users: </strong><span class="users"></span></p>
+        <p>
+          <strong>Number of djs: </strong> <span class="djs"></span>
+        </p>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
